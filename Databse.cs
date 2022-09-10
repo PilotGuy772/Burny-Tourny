@@ -4,8 +4,8 @@ using System.Data.SQLite;
 class Database
 {
     
-        public static SQLiteConnection con = new SQLiteConnection();
-        public static SQLiteCommand    cmd = new SQLiteCommand();
+        private static SQLiteConnection con = new SQLiteConnection();
+        private static SQLiteCommand    cmd = new SQLiteCommand();
 
     
         
@@ -46,11 +46,39 @@ class Database
 
         return output;
     }
+    public static Team[] ReadTeams()
+    {
+        ///<summary>
+        ///reads all teams from the database and returns them in an array
+        ///</summary>
+        
+        
+        cmd.CommandText = "SELECT * FROM teams";
+        SQLiteDataReader rdr = cmd.ExecuteReader();
+        List<Team> output = new List<Team>();
+        Team temp;
+
+        while (rdr.Read())
+        {
+            temp = new Team(rdr.GetString(1), rdr.GetInt32(3), rdr.GetString(2), rdr.GetInt32(4));
+            output.Add(temp);
+        }
+
+        rdr.Close();
+
+        return output.ToArray();
+    }
     public static void Clear()
     {
         cmd.CommandText = "DROP TABLE IF EXISTS teams";
         cmd.ExecuteNonQuery();
 
         Setup();
+    }
+    public static void DeleteTeam(int index, Team[] teamsArray)
+    {
+        cmd.CommandText = $"DELETE FROM teams WHERE id IS {index + 1}";
+        cmd.ExecuteNonQuery();
+        Console.WriteLine($"Team '{teamsArray[index].Name}' deleted.");
     }
 }
