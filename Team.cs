@@ -12,7 +12,7 @@ class Team
         Name = name;
         Event = eVent;
         Leader = leader;
-        
+        Score = 0;
     }
 
     public Team(string name, int eVent, string leader, int score )
@@ -24,6 +24,16 @@ class Team
         
     }
 
+
+    public Team(Team refr )
+    {
+        Name = refr.Name;
+        Event = refr.Event;
+        Leader = refr.Leader;
+        Games = refr.Games;
+        Score = refr.Score;
+        
+    }
 
     public static void AddTeams()
     {
@@ -41,7 +51,7 @@ class Team
         Console.WriteLine("What even is this team registering for? \n  1: Gambit   2: Freelance Gambit   3: 3v3 Elimination   4: Freelance 3v3 Elimination\n(more events coming soon)");
         int e = Convert.ToInt32(Console.ReadLine());
         
-        Team team = new Team(name, e, leader);
+        Team team = new Team(name = "default", e = 0, leader = "none");
 
         Console.WriteLine($"Object created. Name: {team.Name}, Event: {team.Event}, Leader: {team.Leader}");
 

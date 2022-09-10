@@ -1163,11 +1163,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "H:\\programs\\Burny Tourny\\Burny Tourny.csproj",
+      "projectUniqueName": "h:\\programs\\Burny Tourny\\Burny Tourny.csproj",
       "projectName": "Burny Tourny",
-      "projectPath": "H:\\programs\\Burny Tourny\\Burny Tourny.csproj",
+      "projectPath": "h:\\programs\\Burny Tourny\\Burny Tourny.csproj",
       "packagesPath": "C:\\Users\\Laeth\\.nuget\\packages\\",
-      "outputPath": "H:\\programs\\Burny Tourny\\obj\\",
+      "outputPath": "h:\\programs\\Burny Tourny\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

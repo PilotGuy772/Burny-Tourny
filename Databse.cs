@@ -4,9 +4,12 @@ using System.Data.SQLite;
 class Database
 {
     
-        public static SQLiteConnection con;
-        public static SQLiteCommand    cmd;
+        public static SQLiteConnection con = new SQLiteConnection();
+        public static SQLiteCommand    cmd = new SQLiteCommand();
 
+    
+        
+    
     public static void Setup()
     {
         string dir = @"URI=file:main.db";
@@ -23,12 +26,12 @@ class Database
     
     public static void AddTeam(Team team)
     {
-        cmd.CommandText = $"INSERT INTO teams(name, leader, event, score) VALUES('{team.Name}', '{team.Leader}', {team.Event}, {team.Score})";
+        cmd.CommandText = $"INSERT INTO teams(name, leader, event, score) VALUES('{team.Name}','{team.Leader}',{team.Event},{team.Score})";
         cmd.ExecuteNonQuery();
     }
     public static List<Team> ReadTeamsByEvent(int eVent)
     {
-        cmd.CommandText = $"SELECT * FROM teams WHERE event EQUALS {eVent}";
+        cmd.CommandText = $"SELECT * FROM teams WHERE event IS {eVent}";
         SQLiteDataReader rdr = cmd.ExecuteReader();
         List<Team> output = new List<Team>();
         Team temp;
@@ -38,6 +41,8 @@ class Database
             temp = new Team(rdr.GetString(1), rdr.GetInt32(3), rdr.GetString(2), rdr.GetInt32(4));
             output.Add(temp);
         }
+
+        rdr.Close();
 
         return output;
     }

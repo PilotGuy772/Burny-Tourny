@@ -12,7 +12,7 @@ class Program
         switch(Console.ReadLine())
         {
             default:
-                Console.WriteLine("??? What is that?? try again loser. :(");
+                Console.WriteLine("??? What is that?? try again loser. :(\n\n");
                 Main(args);
                 break;
             
@@ -20,6 +20,11 @@ class Program
                 Team.AddTeams();
                 break;
             case "2":
+                Console.Write("Event: ");
+                int e = Convert.ToInt32(Console.ReadLine());
+                Console.Write("Individual Games: ");
+                int g = Convert.ToInt32(Console.ReadLine());
+                Lineup.CreateLineup_Standard1v1(e, g);
                 break;
             case "3":
                 break;
