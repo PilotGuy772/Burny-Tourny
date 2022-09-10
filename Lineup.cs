@@ -6,13 +6,19 @@ class Lineup
 
     public static void CreateLineup_Standard1v1(int e, int individualGames)
     {
+        ///<summary>
+        ///Creates a randomly generated lineup based on the event and # of individual games each team should play
+        ///</summary>
+        
+        
+        
         //teams master list
         Team[]   teamsBackup= Database.ReadTeamsByEvent(e).ToArray();
         //working teams list
         List<Team>   teams  = teamsBackup.ToList();
         //rng yay
         Random       random = new Random();
-        List<(Team, Team)> versuses = new List<(Team one, Team two)>();
+        List<Team[]> versuses = new List<Team[]>();
         
         //random numbers
         int          r1;
@@ -50,7 +56,7 @@ class Lineup
                 {
                     Console.WriteLine($"Match chosen: {teams[r1].Name} VS {teams[r2].Name}");
                     //add the teams selected to the versuses list
-                    versuses.Add ( ( new Team ( teams[r1] ) , new Team ( teams[r2] ) ) );
+                    versuses.Add ( new Team [2] { teams[r1], teams[r2] } );
                     
                     try
                     {
@@ -74,13 +80,29 @@ class Lineup
         
         //display teams lineup
 
-        Console.WriteLine("Lineup completed. Write to .txt file?");
+        
+        SaveLineup(versuses, e);
+
+    }
+
+    private static void SaveLineup(List<Team[]> versuses, int e)
+    {
+        
+        ///<summary>
+        ///Saves a List of Arrays to a text file
+        ///</summary>
+        
+        
+        
         int n = 1;
-        foreach((Team one, Team two) m in versuses)
+        foreach(Team[] m in versuses)
         {
-            Console.WriteLine($"   H{n}:  {m.one.Name} VS {m.two.Name}");
+            Console.WriteLine($"   H{n}:  {m[1].Name} VS {m[2].Name}");
             n++;
         }
+        
+        Console.WriteLine("Lineup completed. Write to .txt file?");
+
         if(Console.ReadLine() == "yes")
         {
             string name = $@"heatsheets\heatsheet_event_{e}";
@@ -92,9 +114,9 @@ class Lineup
             Console.Write("File Path > ");
             string file = @"" + Console.ReadLine();
 
-            foreach((Team one, Team two) m in versuses)
+            foreach(Team[] m in versuses)
             {
-                middleman.Add($"H{i}   {m.one.Name} VS {m.two.Name}");
+                middleman.Add($"H{i}   {m[1].Name} VS {m[2].Name}");
                 i++;
             }
 
@@ -109,6 +131,5 @@ class Lineup
             
 
         }
-
     }
 }
