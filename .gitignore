@@ -1,2 +1,3 @@
-tst.txt
-heatsheets
+*.csproj
+*.txt
+*.db
