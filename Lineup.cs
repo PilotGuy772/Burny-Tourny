@@ -39,35 +39,39 @@ class Lineup
         
         
         //main loop
-        for(int i = 0; i <= individualGames; i++)
+        for(int i = 0; i <= individualGames - 1; i++)
         {
+            
+            Program.ColorPrint($"Loop {i + 1} started", ConsoleColor.Yellow);
             
             while(teams.Count > 0)
             {
                 Console.WriteLine("-----");
+                Console.WriteLine($"List items remaining: {teams.Count}");
+                
                 //initialize rng mode yeehaw
                 r1 = random.Next(0, teams.Count);
-                Thread.Sleep(900);
+                Thread.Sleep(970);
+                
                 r2 = random.Next(0, teams.Count);
                 
                 Console.WriteLine($"#1: {r1}, #2: {r2}");
                                 
                 if(r1 != r2)
                 {
-                    Console.WriteLine($"Match chosen: {teams[r1].Name} VS {teams[r2].Name}");
+                    Program.ColorPrint($"Match chosen: {teams[r1].Name} VS {teams[r2].Name}", ConsoleColor.Green);
                     //add the teams selected to the versuses list
                     versuses.Add ( new Team [2] { teams[r1], teams[r2] } );
-                    
-                    try
+                   
+                    if(r1 > r2)
                     {
                         teams.RemoveAt(r1);
                         teams.RemoveAt(r2);
-
-                    }catch
-                    {
-                        break;
-                    }
-                    //remove those teams form the list
+                    }else{
+                        teams.RemoveAt(r2);
+                        teams.RemoveAt(r1);
+                    }   
+                    
                     
                 }
                 
@@ -97,7 +101,7 @@ class Lineup
         int n = 1;
         foreach(Team[] m in versuses)
         {
-            Console.WriteLine($"   H{n}:  {m[1].Name} VS {m[2].Name}");
+            Console.WriteLine($"   H{n}:  {m[0].Name} VS {m[1].Name}");
             n++;
         }
         
@@ -111,12 +115,12 @@ class Lineup
             List<string> middleman = new List<string>();
             string[] body;
             int i = 1;
-            Console.Write("File Path > ");
-            string file = @"" + Console.ReadLine();
+            Console.Write("File Name > ");
+            string file = @"heatsheets\" + Console.ReadLine();
 
             foreach(Team[] m in versuses)
             {
-                middleman.Add($"H{i}   {m[1].Name} VS {m[2].Name}");
+                middleman.Add($"H{i}   {m[0].Name} VS {m[1].Name}");
                 i++;
             }
 
@@ -128,7 +132,7 @@ class Lineup
             //}foreach(string lineB in body)
             //{
                 File.WriteAllLines(file, body);
-            
+                Program.ColorPrint($"\n\nHeatsheet finished. Find under {file}\n\n", ConsoleColor.Yellow);
 
         }
     }

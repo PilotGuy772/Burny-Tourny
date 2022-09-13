@@ -7,7 +7,7 @@ class Team
     public int?     Games;
     public int?     Score;
 
-    public Team(string name, int eVent, string leader )
+    public Team(string name = "default", int eVent  = 0, string leader  = "none")
     {
         Name = name;
         Event = eVent;
@@ -15,7 +15,7 @@ class Team
         Score = 0;
     }
 
-    public Team(string name, int eVent, string leader, int score )
+    public Team(string name = "default", int eVent  = 0, string leader  = "none", int score = 0)
     {
         Name = name;
         Event = eVent;
@@ -51,14 +51,14 @@ class Team
         Console.WriteLine("What even is this team registering for? \n  1: Gambit   2: Freelance Gambit   3: 3v3 Elimination   4: Freelance 3v3 Elimination\n(more events coming soon)");
         int e = Convert.ToInt32(Console.ReadLine());
         
-        Team team = new Team(name = "default", e = 0, leader = "none");
+        Team team = new Team(name, e, leader);
 
         Console.WriteLine($"Object created. Name: {team.Name}, Event: {team.Event}, Leader: {team.Leader}");
 
         Database.AddTeam(team);
 
         Console.WriteLine("Add another team? y/n");
-        if(Console.ReadLine() == "y") {AddTeams();} else {return;}
+        if(Console.ReadLine() == "y") {AddTeams();}
 
     }
 }
